@@ -386,7 +386,7 @@ def itercat(sources, missing, header):
         for h in outhdr:
             idx = None
             for i in remaining:
-                if hdr[i] == h:
+                if hdr[i] is h or hdr[i] == h:
                     idx = i
                     remaining.remove(i)
                     break

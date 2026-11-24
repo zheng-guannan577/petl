@@ -277,6 +277,16 @@ def test_cat_duplicate_columns_issue561():
     ieq(expect, actual)
 
 
+def test_cat_nan_field_identity():
+    first, second = float('nan'), float('nan')
+    table1 = ((first, second), (1, 2))
+    table2 = ((second, first), (3, 4))
+    rows = iter(cat(table1, table2))
+    header = next(rows)
+    assert header[0] is first and header[1] is second
+    ieq(((1, 2), (4, 3)), rows)
+
+
 def test_stack_dupfields():
     table1 = (('foo', 'foo'),
               (1, 'A'),
